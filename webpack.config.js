@@ -14,7 +14,6 @@ const extractSass = new ExtractTextPlugin({
     filename: "index.css"
 });
 
-
 module.exports.entry = './source/index.js';
 
 module.exports.output = {
@@ -25,7 +24,8 @@ module.exports.output = {
 module.exports.devtool = 'source-map';
 
 module.exports.resolve = {
-    modules: [inputDirectory, 'node_modules']
+    modules: [inputDirectory, 'node_modules'],
+    extensions: ['.js', '.json', '.html']
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +50,11 @@ module.exports.plugins.push(extractSass);
 module.exports.module = {
     rules: []
 };
+
+module.exports.module.rules.push({
+    test: /\.html/,
+    use: 'raw-loader'
+});
 
 module.exports.module.rules.push({
     test: /\.scss$/,
